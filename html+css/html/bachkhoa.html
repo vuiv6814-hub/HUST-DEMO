@@ -156,14 +156,19 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
+          gap: 14px;
       }
 
       .logo {
           display: flex;
           align-items: center;
-          gap: 16px;
-          min-width: 0;
+          gap: 14px;
+          min-width: max-content;
+          flex-shrink: 0;
+      }
+
+      .logo-text {
+          min-width: max-content;
       }
 
       .logo-mark {
@@ -188,31 +193,33 @@
       .logo-text strong {
           display: block;
           font-family: 'Montserrat', sans-serif;
-          font-size: 17px;
+          font-size: 16px;
           font-weight: 900;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.35px;
           color: #fff;
-          line-height: 1.1;
+          line-height: 1;
+          white-space: nowrap;
       }
 
       .logo-text span {
           display: block;
-          margin-top: 4px;
-          font-size: 12px;
+          margin-top: 5px;
+          font-size: 11px;
           color: var(--gold-light);
-          letter-spacing: 0.4px;
+          letter-spacing: 0.15px;
           opacity: 0.92;
+          white-space: nowrap;
       }
 
       nav {
           display: flex;
           align-items: center;
-          gap: 28px;
+          gap: 20px;
       }
 
       nav a {
           color: var(--muted);
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 600;
           position: relative;
           transition: 0.25s ease;
@@ -259,7 +266,7 @@
       }
 
       .btn-outline {
-          padding: 11px 18px;
+          padding: 10px 16px;
           border-radius: 14px;
           background: rgba(255,255,255,0.04);
           border: 1px solid var(--line);
@@ -274,7 +281,7 @@
       }
 
       .btn-primary {
-          padding: 14px 22px;
+          padding: 13px 20px;
           border-radius: 14px;
           background: linear-gradient(135deg, var(--red), var(--red-light));
           color: #fff;
@@ -1080,6 +1087,326 @@
           100% { background-position: 220% center; }
       }
 
+
+      .featured-grid {
+          display: grid;
+          grid-template-columns: 1.08fr 0.92fr;
+          gap: 20px;
+          align-items: stretch;
+      }
+
+      .featured-main,
+      .side-card,
+      .end-showcase,
+      .contact-panel {
+          border-radius: 26px;
+          border: 1px solid rgba(255,255,255,0.10);
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(10px);
+      }
+
+      .featured-main {
+          position: relative;
+          overflow: hidden;
+          padding: 34px;
+          background:
+                  radial-gradient(circle at 15% 20%, rgba(255,91,120,0.16), transparent 28%),
+                  radial-gradient(circle at 85% 15%, rgba(247,198,106,0.14), transparent 24%),
+                  linear-gradient(135deg, rgba(11,35,71,0.96), rgba(19,8,22,0.96));
+      }
+
+      .featured-main::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+          transform: translateX(-100%);
+          animation: featuredSweep 7s linear infinite;
+          pointer-events: none;
+      }
+
+      .featured-badge {
+          position: relative;
+          z-index: 1;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 14px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(255,255,255,0.12);
+          color: var(--gold-light);
+          font-size: 12px;
+          font-weight: 800;
+          margin-bottom: 18px;
+      }
+
+      .featured-main h3 {
+          position: relative;
+          z-index: 1;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 38px;
+          line-height: 1.15;
+          color: #fff;
+          margin-bottom: 14px;
+          max-width: 650px;
+      }
+
+      .featured-main p {
+          position: relative;
+          z-index: 1;
+          font-size: 15px;
+          line-height: 1.9;
+          color: var(--muted);
+          max-width: 620px;
+      }
+
+      .featured-actions {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 24px;
+      }
+
+      .side-stack {
+          display: grid;
+          gap: 16px;
+      }
+
+      .side-card {
+          padding: 24px;
+          background: rgba(255,255,255,0.05);
+          transition: 0.28s ease;
+      }
+
+      .side-card:hover {
+          transform: translateY(-6px);
+          background: rgba(255,255,255,0.08);
+      }
+
+      .side-card small {
+          display: inline-block;
+          margin-bottom: 10px;
+          color: var(--gold-light);
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.4px;
+      }
+
+      .side-card h4 {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 22px;
+          line-height: 1.25;
+          color: #fff;
+          margin-bottom: 10px;
+      }
+
+      .side-card p {
+          font-size: 14px;
+          line-height: 1.8;
+          color: var(--muted);
+      }
+
+      .end-section {
+          padding-top: 30px;
+      }
+
+      .end-showcase {
+          position: relative;
+          overflow: hidden;
+          padding: 34px;
+          background:
+                  radial-gradient(circle at 12% 18%, rgba(255,91,120,0.14), transparent 24%),
+                  radial-gradient(circle at 88% 18%, rgba(247,198,106,0.14), transparent 24%),
+                  linear-gradient(135deg, rgba(9,18,38,0.96), rgba(18,10,34,0.96));
+      }
+
+      .end-chip {
+          display: inline-block;
+          padding: 8px 14px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.12);
+          color: var(--gold-light);
+          font-size: 12px;
+          font-weight: 800;
+          margin-bottom: 18px;
+      }
+
+      .end-grid {
+          display: grid;
+          grid-template-columns: 1.08fr 0.92fr;
+          gap: 24px;
+          align-items: center;
+      }
+
+      .end-title {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 40px;
+          line-height: 1.15;
+          color: #fff;
+          margin-bottom: 14px;
+          max-width: 640px;
+      }
+
+      .end-desc {
+          font-size: 15px;
+          line-height: 1.9;
+          color: var(--muted);
+          max-width: 620px;
+      }
+
+      .end-actions {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 24px;
+      }
+
+      .end-metrics {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 14px;
+      }
+
+      .metric-card {
+          padding: 20px;
+          border-radius: 22px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.10);
+      }
+
+      .metric-number {
+          display: block;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 28px;
+          font-weight: 900;
+          margin-bottom: 8px;
+          background: linear-gradient(135deg, var(--gold), #fff2c7);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+      }
+
+      .metric-label {
+          font-size: 13px;
+          line-height: 1.75;
+          color: var(--muted);
+      }
+
+      .contact-showcase {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin-top: 24px;
+      }
+
+      .contact-panel {
+          padding: 22px;
+          background: rgba(255,255,255,0.045);
+          transition: 0.28s ease;
+      }
+
+      .contact-panel:hover {
+          transform: translateY(-5px);
+          background: rgba(255,255,255,0.07);
+      }
+
+      .contact-kicker {
+          display: inline-block;
+          padding: 7px 12px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.10);
+          color: var(--gold-light);
+          font-size: 12px;
+          font-weight: 800;
+          margin-bottom: 14px;
+      }
+
+      .contact-panel h3 {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 21px;
+          line-height: 1.25;
+          color: #fff;
+          margin-bottom: 10px;
+      }
+
+      .contact-panel p,
+      .contact-panel a {
+          font-size: 14px;
+          line-height: 1.8;
+          color: var(--muted);
+      }
+
+      .contact-panel a {
+          display: inline-block;
+          margin-bottom: 4px;
+      }
+
+      .quick-links {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          margin-top: 14px;
+      }
+
+      .quick-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 14px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.10);
+          color: #fff;
+          font-size: 13px;
+          font-weight: 700;
+          transition: 0.25s ease;
+      }
+
+      .quick-link:hover {
+          transform: translateY(-2px);
+          background: rgba(255,255,255,0.09);
+      }
+
+      .end-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 16px;
+          flex-wrap: wrap;
+          margin-top: 24px;
+          padding-top: 22px;
+          border-top: 1px solid rgba(255,255,255,0.10);
+          color: var(--muted);
+          font-size: 14px;
+      }
+
+      .end-footer-badges {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+      }
+
+      .end-footer-badges span {
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          color: #e7edff;
+      }
+
+      @keyframes featuredSweep {
+          0% {
+              transform: translateX(-100%);
+          }
+          100% {
+              transform: translateX(120%);
+          }
+      }
+
       @media (max-width: 1080px) {
           nav {
               display: none;
@@ -1097,6 +1424,12 @@
           .features-grid,
           .contact-grid {
               grid-template-columns: repeat(2, 1fr);
+          }
+
+          .featured-grid,
+          .end-grid,
+          .contact-showcase {
+              grid-template-columns: 1fr;
           }
       }
 
@@ -1152,6 +1485,32 @@
 
           .logo-text strong {
               font-size: 15px;
+          }
+
+          .featured-main,
+          .end-showcase {
+              padding: 24px;
+          }
+
+          .featured-main h3,
+          .end-title {
+              font-size: 28px;
+          }
+
+          .featured-actions,
+          .end-actions {
+              flex-direction: column;
+          }
+
+          .featured-actions .btn-primary,
+          .featured-actions .btn-secondary,
+          .end-actions .btn-primary,
+          .end-actions .btn-secondary {
+              width: 100%;
+          }
+
+          .end-metrics {
+              grid-template-columns: 1fr;
           }
       }
   </style>
@@ -1444,77 +1803,140 @@
     <div class="container">
       <div class="section-heading reveal">
         <div class="section-tag">Nổi bật</div>
-        <h2 class="section-title">CARD ẢNH VÀ CTA <span>GIỮ NGUYÊN TONE ĐẸP</span></h2>
+        <h2 class="section-title">KHÔNG GIAN <span>NỔI BẬT HƠN</span></h2>
         <p class="section-desc">
-          Phần này vẫn có hover, zoom ảnh, ánh sáng quét và banner kêu gọi hành động ở dưới như bạn muốn.
+          Mình đổi phần cuối sang kiểu hiện đại hơn, gọn hơn và có điểm nhấn rõ hơn thay vì card và contact đơn giản như cũ.
         </p>
       </div>
 
-      <div class="highlight-wrap">
-        <div class="highlight-card reveal">
-          <div class="highlight-image">
-            <img src="images/bach-khoa-su-kien.jpg" alt="Sự kiện Bách Khoa Hà Nội">
-            <div class="highlight-overlay"></div>
-            <div class="highlight-shine"></div>
-          </div>
+      <div class="featured-grid">
+        <div class="featured-main reveal">
+          <div class="featured-badge">IT OPEN LAB • BÁCH KHOA HÀ NỘI</div>
+          <h3>Không chỉ là nơi đăng ký, đây là nơi để ý tưởng được bắt đầu.</h3>
+          <p>
+            Phần này được làm lại theo kiểu khối nổi bật lớn, nhìn sang hơn và có cảm giác đủ premium
+            cho phần cuối website. Bạn có thể dùng nó để giới thiệu hoạt động, chiến dịch hoặc một sự kiện chính.
+          </p>
 
-          <div class="highlight-content">
-            <div class="highlight-date">23.05.2026 | 19:00</div>
-            <div class="highlight-title">Sẵn sàng bứt phá?</div>
-            <div class="highlight-desc">
-              Khám phá không gian học thuật, sáng tạo và kết nối trong một giao diện nổi bật, hiện đại và giàu cảm hứng hơn.
-            </div>
-            <a href="chi-tiet.html" class="highlight-btn">XEM CHI TIẾT ✦</a>
+          <div class="featured-actions">
+            <a href="#dangky" class="btn-primary">Đăng ký tham gia</a>
+            <a href="#gioithieu" class="btn-secondary">Xem thêm giới thiệu</a>
           </div>
         </div>
 
-        <div class="cta-box reveal">
-          <div class="cta-title">Sẵn sàng đồng hành cùng cộng đồng sinh viên Bách Khoa?</div>
-          <div class="cta-desc">
-            Đừng để ý tưởng chỉ nằm trên giấy. Hãy chủ động tham gia, đăng ký và tạo dấu ấn của bạn ngay hôm nay.
+        <div class="side-stack">
+          <div class="side-card reveal">
+            <small>01 • Học thuật</small>
+            <h4>Không gian để thử, làm và phát triển dự án</h4>
+            <p>
+              Hợp để giới thiệu workshop, phòng lab, nhóm nghiên cứu hoặc hoạt động thực hành của sinh viên.
+            </p>
           </div>
-          <a href="#dangky" class="cta-btn">↗ ĐI TỚI KHU ĐĂNG KÝ</a>
+
+          <div class="side-card reveal">
+            <small>02 • Cộng đồng</small>
+            <h4>Kết nối sinh viên, giảng viên và người cùng đam mê công nghệ</h4>
+            <p>
+              Phần phụ này giúp bố cục cuối trang bớt trống và nhìn có chiều sâu hơn bản cũ.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="lienhe">
+  <section id="lienhe" class="end-section">
     <div class="container">
-      <div class="section-heading reveal">
-        <div class="section-tag">Liên hệ</div>
-        <h2 class="section-title">THÔNG TIN <span>KẾT NỐI</span></h2>
-        <p class="section-desc">
-          Bạn có thể đổi phần này thành thông tin thật của IT Open Lab, khoa hoặc đơn vị của bạn.
-        </p>
-      </div>
+      <div class="end-showcase reveal">
+        <div class="end-chip">KẾT NỐI • THAM GIA • ĐỒNG HÀNH</div>
 
-      <div class="contact-grid">
-        <div class="contact-card reveal">
-          <h3>Địa chỉ</h3>
-          <p>Thay bằng địa chỉ thật của phòng lab, khoa, trường hoặc khu vực tổ chức mà bạn muốn hiển thị.</p>
+        <div class="end-grid">
+          <div>
+            <h2 class="end-title">Một phần kết trang gọn hơn, sang hơn và nhìn ra chất hơn.</h2>
+            <p class="end-desc">
+              Mình đã bỏ kiểu contact card cũ và thay bằng một khối kết thúc thống nhất hơn:
+              có lời kêu gọi hành động, có điểm nhấn nhanh, có thông tin liên hệ rõ ràng và nhìn đẹp hơn khi cuộn xuống cuối trang.
+            </p>
+
+            <div class="end-actions">
+              <a href="#dangky" class="btn-primary">Đi tới khu đăng ký</a>
+              <a href="#noibat" class="btn-secondary">Xem phần nổi bật</a>
+            </div>
+          </div>
+
+          <div class="end-metrics">
+            <div class="metric-card">
+              <span class="metric-number">01</span>
+              <div class="metric-label">Giữ tone tối đậm, nhưng phần cuối không còn bị rời rạc.</div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-number">02</span>
+              <div class="metric-label">Nút hành động rõ hơn và nhìn chuyên nghiệp hơn.</div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-number">03</span>
+              <div class="metric-label">Thông tin liên hệ được gom lại nên gọn và dễ nhìn hơn.</div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-number">04</span>
+              <div class="metric-label">Dễ thay bằng nội dung thật của CLB, khoa hoặc sự kiện.</div>
+            </div>
+          </div>
         </div>
-        <div class="contact-card reveal">
-          <h3>Email</h3>
-          <a href="mailto:contact@example.com">contact@example.com</a>
-          <p>Dùng cho học thuật, truyền thông, hỗ trợ sự kiện hoặc đăng ký tham gia.</p>
+
+        <div class="contact-showcase">
+          <div class="contact-panel reveal">
+            <div class="contact-kicker">Địa điểm</div>
+            <h3>Khu làm việc và tổ chức</h3>
+            <p>Tòa nhà C1 / Khu học tập Bách Khoa Hà Nội</p>
+            <p>
+              Bạn thay bằng địa chỉ thật của phòng lab, khu hoạt động hoặc nơi tổ chức sự kiện của bạn.
+            </p>
+          </div>
+
+          <div class="contact-panel reveal">
+            <div class="contact-kicker">Liên hệ</div>
+            <h3>Kênh trao đổi chính</h3>
+            <a href="mailto:itopenlab@hust.edu.vn">itopenlab@hust.edu.vn</a><br />
+            <a href="tel:0123456789">0123 456 789</a>
+            <p>
+              Gom email và số điện thoại vào chung một khối để phần cuối nhìn gọn hơn bản cũ.
+            </p>
+          </div>
+
+          <div class="contact-panel reveal">
+            <div class="contact-kicker">Truy cập nhanh</div>
+            <h3>Nút điều hướng nhanh</h3>
+            <p>
+              Có thể đổi các nút này thành Facebook, fanpage, form đăng ký, Zalo hoặc trang chi tiết sự kiện.
+            </p>
+
+            <div class="quick-links">
+              <a href="#dangky" class="quick-link">Đăng ký</a>
+              <a href="#gioithieu" class="quick-link">Giới thiệu</a>
+              <a href="#noibat" class="quick-link">Nổi bật</a>
+            </div>
+          </div>
         </div>
-        <div class="contact-card reveal">
-          <h3>Hotline</h3>
-          <a href="tel:0123456789">0123 456 789</a>
-          <p>Đổi lại bằng số điện thoại thật của đơn vị hoặc dự án của bạn.</p>
+
+        <div class="end-footer">
+          <div>© 2026 Bách Khoa Hà Nội • IT Open Lab</div>
+
+          <div class="end-footer-badges">
+            <span>Dark premium UI</span>
+            <span>Logo đồng bộ</span>
+            <span>Cuối trang mới</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="container footer-inner">
-    <div>© 2026 Bách Khoa Hà Nội • IT Open Lab</div>
-    <div>Đã thay logo mới và giữ tone màu đậm ban đầu</div>
-  </div>
-</footer>
+<footer style="display:none;"></footer>
 
 <script>
   window.addEventListener('scroll', () => {
