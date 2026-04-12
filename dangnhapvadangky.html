@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập / Đăng Ký</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      .form-container {
+          transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+      .form-hidden {
+          transform: translateY(20px);
+          opacity: 0;
+          display: none;
+      }
+      .form-visible {
+          transform: translateY(0);
+          opacity: 1;
+      }
+      .eye-icon {
+          cursor: pointer;
+          user-select: none;
+      }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+<div class="container bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+  <!-- Form Đăng nhập -->
+  <form id="login-form" class="form-container form-visible">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Đăng Nhập</h2>
+    <div class="mb-4">
+      <label for="login-email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+      <input type="email" id="login-email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Nhập email của bạn">
+      <p class="text-red-500 text-sm mt-1 hidden" id="login-email-error">Vui lòng nhập email hợp lệ</p>
+    </div>
+    <div class="mb-4 relative">
+      <label for="login-password" class="block text-sm font-medium text-gray-700 mb-2">Mật Khẩu</label>
+      <input type="password" id="login-password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Nhập mật khẩu">
+      <span class="eye-icon absolute right-3 top-10 text-gray-500" onclick="togglePassword('login-password', this)">👁️</span>
+      <p class="text-red-500 text-sm mt-1 hidden" id="login-password-error">Mật khẩu phải có ít nhất 6 ký tự</p>
+    </div>
+    <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors duration-300">Đăng Nhập</button>
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-600">Chưa có tài khoản? <a onclick="toggleForms()" class="text-blue-600 font-semibold hover:underline cursor-pointer">Đăng Ký</a></p>
+    </div>
+  </form>
+
+  <!-- Form Đăng ký -->
+  <form id="register-form" class="form-container form-hidden">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Đăng Ký</h2>
+    <div class="mb-4">
+      <label for="register-name" class="block text-sm font-medium text-gray-700 mb-2">Họ và Tên</label>
+      <input type="text" id="register-name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Nhập họ và tên">
+      <p class="text-red-500 text-sm mt-1 hidden" id="register-name-error">Vui lòng nhập họ và tên</p>
+    </div>
+    <div class="mb-4">
+      <label for="register-email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+      <input type="email" id="register-email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Nhập email của bạn">
+      <p class="text-red-500 text-sm mt-1 hidden" id="register-email-error">Vui lòng nhập email hợp lệ</p>
+    </div>
+    <div class="mb-4 relative">
+      <label for="register-password" class="block text-sm font-medium text-gray-700 mb-2">Mật Khẩu</label>
+      <input type="password" id="register-password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Nhập mật khẩu">
+      <span class="eye-icon absolute right-3 top-10 text-gray-500" onclick="togglePassword('register-password', this)">👁️</span>
+      <p class="text-red-500 text-sm mt-1 hidden" id="register-password-error">Mật khẩu phải có ít nhất 6 ký tự</p>
+    </div>
+    <div class="mb-4 relative">
+      <label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-2">Xác Nhận Mật Khẩu</label>
+      <input type="password" id="register-confirm-password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required placeholder="Xác nhận mật khẩu">
+      <span class="eye-icon absolute right-3 top-10 text-gray-500" onclick="togglePassword('register-confirm-password', this)">👁️</span>
+      <p class="text-red-500 text-sm mt-1 hidden" id="register-confirm-password-error">Mật khẩu xác nhận không khớp</p>
+    </div>
+    <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors duration-300">Đăng Ký</button>
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-600">Đã có tài khoản? <a onclick="toggleForms()" class="text-blue-600 font-semibold hover:underline cursor-pointer">Đăng Nhập</a></p>
+    </div>
+  </form>
+</div>
+
+<script>
+  function toggleForms() {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    loginForm.classList.toggle('form-hidden');
+    loginForm.classList.toggle('form-visible');
+    registerForm.classList.toggle('form-hidden');
+    registerForm.classList.toggle('form-visible');
+  }
+
+  function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.textContent = '🙈';
+    } else {
+      input.type = 'password';
+      icon.textContent = '👁️';
+    }
+  }
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const emailError = document.getElementById('login-email-error');
+    const passwordError = document.getElementById('login-password-error');
+
+    emailError.classList.add('hidden');
+    passwordError.classList.add('hidden');
+
+    let isValid = true;
+    if (!validateEmail(email)) {
+      emailError.classList.remove('hidden');
+      isValid = false;
+
+    if (password.length < 6) {
+      passwordError.classList.remove('hidden');
+      isValid = false;
+    }
+
+    if (isValid) {
+      alert('Đăng nhập thành công!'); // Replace with actual login logic
+    }
+  });
+
+  document.getElementById('register-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('register-confirm-password').value;
+    const nameError = document.getElementById('register-name-error');
+    const emailError = document.getElementById('register-email-error');
+    const passwordError = document.getElementById('register-password-error');
+    const confirmPasswordError = document.getElementById('register-confirm-password-error');
+
+    nameError.classList.add('hidden');
+    emailError.classList.add('hidden');
+    passwordError.classList.add('hidden');
+    confirmPasswordError.classList.add('hidden');
+
+    let isValid = true;
+    if (!name) {
+      nameError.classList.remove('hidden');
+      isValid = false;
+    }
+    if (!validateEmail(email)) {
+      emailError.classList.remove('hidden');
+      isValid = false;
+    }
+    if (password.length < 6) {
+      passwordError.classList.remove('hidden');
+      isValid = false;
+    }
+    if (password !== confirmPassword) {
+      confirmPasswordError.classList.remove('hidden');
+      isValid = false;
+    }
+
+    if (isValid) {
+      alert('Đăng ký thành công!'); // Replace with actual registration logic
+    }
+  });
+</script>
+</body>
+</html>

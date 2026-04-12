@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng ký - BK Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bachkhoa.css" />
+</head>
+<body class="auth-body">
+<section class="auth-shell">
+  <div class="auth-left">
+    <a href="index.html" class="auth-back">← Quay về trang chủ</a>
+
+    <div class="auth-copy">
+      <span class="eyebrow">BK PORTAL</span>
+      <h1>Tạo tài khoản mới để bắt đầu sử dụng hệ thống</h1>
+      <p>
+        Trang đăng ký được thiết kế lại để nhìn đồng nhất với toàn bộ website,
+        vẫn giữ chức năng kiểm tra xác nhận mật khẩu như bạn cần.
+      </p>
+
+      <div class="auth-points">
+        <div class="auth-point">
+          <span>🚀</span>
+          <div>
+            <strong>Đăng ký nhanh</strong>
+            <p>Điền thông tin đơn giản và rõ ràng.</p>
+          </div>
+        </div>
+
+        <div class="auth-point">
+          <span>🔒</span>
+          <div>
+            <strong>Kiểm tra mật khẩu</strong>
+            <p>Có xác nhận mật khẩu trước khi chuyển trang.</p>
+          </div>
+        </div>
+
+        <div class="auth-point">
+          <span>✨</span>
+          <div>
+            <strong>Nhìn chuyên nghiệp hơn</strong>
+            <p>Không còn cảm giác rời rạc giữa các trang.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-card-modern">
+      <div class="auth-card-top">
+        <div class="auth-logo-modern">BK</div>
+        <div>
+          <p class="auth-kicker">TẠO TÀI KHOẢN MỚI</p>
+          <h2>Đăng ký</h2>
+        </div>
+      </div>
+
+      <form id="registerForm" class="auth-form-modern">
+        <div class="input-wrap">
+          <label for="fullName">Họ và tên</label>
+          <input type="text" id="fullName" placeholder="Nhập họ và tên" required>
+        </div>
+
+        <div class="input-wrap">
+          <label for="register-email">Email</label>
+          <input type="email" id="register-email" placeholder="Nhập email" required>
+        </div>
+
+        <div class="input-wrap">
+          <label for="register-password">Mật khẩu</label>
+          <input type="password" id="register-password" placeholder="Tạo mật khẩu" required>
+        </div>
+
+        <div class="input-wrap">
+          <label for="confirm-password">Xác nhận mật khẩu</label>
+          <input type="password" id="confirm-password" placeholder="Nhập lại mật khẩu" required>
+        </div>
+
+        <button type="submit" class="auth-submit-modern">Đăng ký</button>
+        <p class="error-box" id="registerError">Mật khẩu xác nhận không khớp.</p>
+        <p class="success-box" id="registerSuccess">Đăng ký thành công! Đang chuyển sang đăng nhập...</p>
+      </form>
+
+      <div class="divider"><span>hoặc</span></div>
+
+      <div class="auth-bottom">
+        <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const registerForm = document.getElementById("registerForm");
+  const registerPassword = document.getElementById("register-password");
+  const confirmPassword = document.getElementById("confirm-password");
+  const registerError = document.getElementById("registerError");
+  const registerSuccess = document.getElementById("registerSuccess");
+
+  registerForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    registerError.style.display = "none";
+    registerSuccess.style.display = "none";
+
+    if (registerPassword.value !== confirmPassword.value) {
+      registerError.style.display = "block";
+      return;
+    }
+
+    registerSuccess.style.display = "block";
+
+    setTimeout(function () {
+      window.location.href = "login.html";
+    }, 1400);
+  });
+</script>
+</body>
+</html>

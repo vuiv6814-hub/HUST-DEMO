@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập — CodeVerse 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+      body { overflow: hidden; }
+
+      /* ── LAYOUT ── */
+      .login-layout {
+          position: relative;
+          z-index: 1;
+          min-height: 100vh;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+      }
+
+      /* ── LEFT PANEL ── */
+      .left-panel {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 80px 6% 60px;
+          position: relative;
+          overflow: hidden;
+      }
+
+      .left-panel::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+                  radial-gradient(ellipse 80% 60% at 20% 40%, rgba(0,255,136,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 80% 80%, rgba(0,198,255,0.04) 0%, transparent 60%);
+          pointer-events: none;
+      }
+
+      .panel-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          color: var(--green);
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          margin-bottom: 28px;
+      }
+
+      .panel-title {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: clamp(52px, 7vw, 100px);
+          line-height: 0.88;
+          letter-spacing: 3px;
+          margin-bottom: 24px;
+      }
+
+      .panel-desc {
+          font-size: 16px;
+          color: var(--muted);
+          line-height: 1.9;
+          max-width: 420px;
+          margin-bottom: 44px;
+      }
+
+      .event-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 24px;
+          background: var(--card);
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          margin-bottom: 14px;
+          transition: all var(--transition);
+      }
+
+      .event-pill:hover {
+          border-color: var(--border-bright);
+          background: rgba(0,255,136,0.04);
+      }
+
+      .pill-icon {
+          width: 44px; height: 44px;
+          border-radius: 10px;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 20px;
+          background: rgba(0,255,136,0.1);
+          flex-shrink: 0;
+      }
+
+      .pill-label { font-size: 12px; color: var(--muted); }
+      .pill-value { font-size: 14px; font-weight: 700; color: var(--text); }
+
+      /* ── RIGHT PANEL (FORM) ── */
+      .right-panel {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 80px 7% 60px;
+          background: rgba(0,0,0,0.3);
+          border-left: 1px solid var(--border);
+          overflow-y: auto;
+      }
+
+      .form-container {
+          width: 100%;
+          max-width: 420px;
+      }
+
+      .form-logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 40px;
+      }
+
+      .form-title {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 42px;
+          letter-spacing: 2px;
+          margin-bottom: 6px;
+          line-height: 1;
+      }
+
+      .form-sub {
+          font-size: 14px;
+          color: var(--muted);
+          margin-bottom: 36px;
+      }
+
+      /* ── FORM FIELDS ── */
+      .field {
+          margin-bottom: 20px;
+      }
+
+      .field label {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--muted);
+          margin-bottom: 9px;
+      }
+
+      .field label a {
+          font-size: 12px;
+          color: var(--green);
+          text-decoration: none;
+          letter-spacing: 0;
+          font-weight: 600;
+      }
+
+      .field label a:hover { text-decoration: underline; }
+
+      .input-wrap {
+          position: relative;
+      }
+
+      .input-wrap .input-icon {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 16px;
+          pointer-events: none;
+          opacity: 0.5;
+      }
+
+      .field input {
+          width: 100%;
+          padding: 14px 16px 14px 46px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-sm);
+          color: var(--text);
+          font-family: 'Lexend', sans-serif;
+          font-size: 15px;
+          outline: none;
+          transition: all var(--transition);
+      }
+
+      .field input::placeholder { color: rgba(96,112,144,0.6); }
+
+      .field input:focus {
+          border-color: var(--green);
+          background: rgba(0,255,136,0.04);
+          box-shadow: 0 0 0 3px rgba(0,255,136,0.08);
+      }
+
+      .toggle-pw {
+          position: absolute;
+          right: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          color: var(--muted);
+          cursor: pointer;
+          font-size: 16px;
+          padding: 4px;
+          transition: color var(--transition);
+      }
+
+      .toggle-pw:hover { color: var(--green); }
+
+      .field-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 28px;
+      }
+
+      .checkbox-wrap {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+      }
+
+      .checkbox-wrap input[type="checkbox"] {
+          width: 16px; height: 16px;
+          accent-color: var(--green);
+          cursor: pointer;
+      }
+
+      .checkbox-wrap span {
+          font-size: 13px;
+          color: var(--muted);
+      }
+
+      /* ── ROLE SELECTOR ── */
+      .role-selector {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          margin-bottom: 28px;
+      }
+
+      .role-btn {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          padding: 16px 12px;
+          border: 1px solid var(--border);
+          border-radius: var(--radius-sm);
+          background: var(--card);
+          color: var(--muted);
+          cursor: pointer;
+          transition: all var(--transition);
+          font-family: 'Lexend', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+      }
+
+      .role-btn .role-emoji { font-size: 24px; }
+
+      .role-btn:hover,
+      .role-btn.active {
+          border-color: var(--border-bright);
+          color: var(--green);
+          background: rgba(0,255,136,0.06);
+      }
+
+      .role-btn.active {
+          box-shadow: 0 0 20px rgba(0,255,136,0.15);
+      }
+
+      /* ── SUBMIT ── */
+      .btn-submit {
+          width: 100%;
+          padding: 16px;
+          background: var(--green);
+          color: #000;
+          font-family: 'Lexend', sans-serif;
+          font-weight: 700;
+          font-size: 16px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          border: none;
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          transition: all var(--transition);
+          margin-bottom: 24px;
+      }
+
+      .btn-submit:hover {
+          background: #20FFa0;
+          transform: translateY(-2px);
+          box-shadow: 0 10px 40px rgba(0,255,136,0.4);
+      }
+
+      .btn-submit:active { transform: none; }
+
+      /* loading state */
+      .btn-submit.loading {
+          opacity: 0.7;
+          pointer-events: none;
+      }
+
+      .form-footer {
+          text-align: center;
+          font-size: 14px;
+          color: var(--muted);
+      }
+
+      .form-footer a {
+          color: var(--green);
+          text-decoration: none;
+          font-weight: 600;
+      }
+
+      .form-footer a:hover { text-decoration: underline; }
+
+      /* ── ERROR / SUCCESS MESSAGES ── */
+      .alert {
+          padding: 12px 16px;
+          border-radius: var(--radius-sm);
+          font-size: 13px;
+          margin-bottom: 20px;
+          display: none;
+      }
+
+      .alert.error {
+          background: rgba(255,77,141,0.1);
+          border: 1px solid rgba(255,77,141,0.3);
+          color: var(--pink);
+      }
+
+      .alert.success {
+          background: rgba(0,255,136,0.08);
+          border: 1px solid rgba(0,255,136,0.3);
+          color: var(--green);
+      }
+
+      .alert.show { display: block; }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 860px) {
+          body { overflow: auto; }
+          .login-layout { grid-template-columns: 1fr; }
+          .left-panel { display: none; }
+          .right-panel { border-left: none; min-height: 100vh; }
+      }
+  </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- ═══ TOPBAR ═══ -->
+<header class="topbar solid">
+  <a href="index.html" class="logo">
+    <div class="logo-mark">&lt;/&gt;</div>
+    <div class="logo-text">
+      <span class="logo-name">CODEVERSE</span>
+      <span class="logo-sub">FPT PolySchool · 2026</span>
+    </div>
+  </a>
+  <div class="nav-actions" style="margin-left:auto;">
+    <a href="index.html" class="btn btn-ghost">← Trang Chủ</a>
+    <a href="register.html" class="btn btn-green">Đăng Ký Trải Nghiệm</a>
+  </div>
+</header>
+
+<!-- ═══ MAIN LAYOUT ═══ -->
+<div class="login-layout" style="padding-top:68px;">
+
+  <!-- LEFT: Branding -->
+  <div class="left-panel">
+    <div class="panel-eyebrow">
+      <span style="font-size:16px;">💻</span>
+      Cổng Thông Tin Đăng Ký
+    </div>
+
+    <h1 class="panel-title">
+      CHÀO<br>MỪNG<br>
+      <span class="grad-green">TRỞ LẠI</span>
+    </h1>
+
+    <p class="panel-desc">
+      Đăng nhập để xem tình trạng đăng ký, chọn workshop và nhận thông tin mới nhất về sự kiện <strong style="color:var(--text)">CodeVerse 2026</strong>.
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:360px;">
+      <div class="event-pill">
+        <div class="pill-icon">📅</div>
+        <div><div class="pill-label">Ngày Diễn Ra</div><div class="pill-value">15/06/2026 — 08:00 đến 17:00</div></div>
+      </div>
+      <div class="event-pill">
+        <div class="pill-icon">📍</div>
+        <div><div class="pill-label">Địa Điểm</div><div class="pill-value">FPT PolySchool · Hà Nội</div></div>
+      </div>
+      <div class="event-pill">
+        <div class="pill-icon">🎟</div>
+        <div><div class="pill-label">Còn Lại</div><div class="pill-value" style="color:var(--pink);">127 / 500 suất trống</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Form -->
+  <div class="right-panel">
+    <div class="form-container">
+      <div class="form-logo">
+        <div class="logo-mark">&lt;/&gt;</div>
+        <div class="logo-text">
+          <span class="logo-name">CODEVERSE</span>
+          <span class="logo-sub">2026</span>
+        </div>
+      </div>
+
+      <h2 class="form-title">ĐĂNG NHẬP</h2>
+      <p class="form-sub">Truy cập cổng thông tin đăng ký của bạn</p>
+
+      <!-- Role Selector -->
+      <div class="role-selector" id="roleSelector">
+        <button class="role-btn active" data-role="student" onclick="selectRole('student')">
+          <span class="role-emoji">👨‍💻</span>
+          <span>Học Sinh</span>
+        </button>
+        <button class="role-btn" data-role="parent" onclick="selectRole('parent')">
+          <span class="role-emoji">👨‍👩‍👧</span>
+          <span>Phụ Huynh</span>
+        </button>
+      </div>
+
+      <!-- Alert -->
+      <div class="alert error" id="alertMsg">
+        ⚠️ Email hoặc mật khẩu không đúng. Vui lòng thử lại.
+      </div>
+
+      <!-- Form -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="field">
+          <label>Email Đăng Ký</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input type="email" id="email" placeholder="example@email.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>
+            Mật Khẩu
+            <a href="#">Quên mật khẩu?</a>
+          </label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="••••••••" required>
+            <button type="button" class="toggle-pw" onclick="togglePw()" id="toggleBtn">👁</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="remember">
+            <span>Ghi nhớ đăng nhập</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          ĐĂNG NHẬP →
+        </button>
+      </form>
+
+      <div class="divider" style="margin-bottom:24px;">HOẶC</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;">
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;gap:8px;padding:13px;">
+          <span>🔵</span> Google
+        </button>
+        <button class="btn btn-ghost" style="width:100%;justify-content:center;gap:8px;padding:13px;">
+          <span>📘</span> Facebook
+        </button>
+      </div>
+
+      <p class="form-footer">
+        Chưa có tài khoản? <a href="register.html">Đăng ký trải nghiệm →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── CANVAS ── */
+  (function() {
+    const c = document.getElementById('bg-canvas');
+    const ctx = c.getContext('2d');
+    let W, H, dots = [], chars = '01アBCD</>{}[]';
+
+    function resize() { W = c.width = window.innerWidth; H = c.height = window.innerHeight; }
+    function init() {
+      dots = [];
+      for (let i = 0; i < 80; i++) {
+        dots.push({
+          x: Math.random() * W, y: Math.random() * H,
+          size: Math.random() * 10 + 6, speed: Math.random() * 0.3 + 0.1,
+          alpha: Math.random() * 0.1 + 0.02,
+          char: chars[Math.floor(Math.random() * chars.length)],
+          color: ['#00FF88','#00C6FF'][Math.floor(Math.random()*2)],
+          ct: Math.floor(Math.random() * 60)
+        });
+      }
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      dots.forEach(d => {
+        if (--d.ct <= 0) { d.char = chars[Math.floor(Math.random() * chars.length)]; d.ct = Math.floor(Math.random() * 80 + 20); }
+        d.y -= d.speed;
+        if (d.y < -20) { d.y = H + 20; d.x = Math.random() * W; }
+        ctx.globalAlpha = d.alpha;
+        ctx.fillStyle = d.color;
+        ctx.font = `${d.size}px 'JetBrains Mono', monospace`;
+        ctx.fillText(d.char, d.x, d.y);
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    resize(); init(); draw();
+    window.addEventListener('resize', () => { resize(); init(); });
+  })();
+
+  /* ── ROLE SELECTOR ── */
+  function selectRole(role) {
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-role="${role}"]`).classList.add('active');
+  }
+
+  /* ── TOGGLE PASSWORD ── */
+  function togglePw() {
+    const pw = document.getElementById('password');
+    const btn = document.getElementById('toggleBtn');
+    if (pw.type === 'password') { pw.type = 'text'; btn.textContent = '🙈'; }
+    else { pw.type = 'password'; btn.textContent = '👁'; }
+  }
+
+  /* ── HANDLE LOGIN ── */
+  function handleLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const alert = document.getElementById('alertMsg');
+    alert.classList.remove('show');
+    btn.textContent = 'ĐANG ĐĂNG NHẬP...';
+    btn.classList.add('loading');
+
+    setTimeout(() => {
+      btn.textContent = 'ĐĂNG NHẬP →';
+      btn.classList.remove('loading');
+      // Demo: show error
+      alert.classList.add('show');
+      setTimeout(() => alert.classList.remove('show'), 4000);
+    }, 1800);
+  }
+</script>
+</body>
+</html>

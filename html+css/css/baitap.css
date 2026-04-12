@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.sider-container{
+    width:800px;
+    height:450px;
+    margin:50px auto;
+    overflow : hidden;
+    border-radius: 12px;
+    position : absolute;
+}
+.slides {
+    display:flex;
+    width : 600%;
+    height : 100%;
+    animation : infinite-spin infinite;
+}
+.slide {
+    width:16.66666%;
+    height:100%;
+    object-fit: cover;
+}
+.silde img{
+    width:100px;
+    height:100px;
+}
+@keyframes infinite-spin {
+    0% { transform: translatex(0); }/* điểm bắt đầu*/
+    100% { transform: translatex(-50%); } /*tạo hiệu ứng nhảy khi mà đến cuối - ảnh cuối css tự reset về 0%*/
+}
+.slider-container:hover .slide {
+    animation-play-state: paused;
+}
