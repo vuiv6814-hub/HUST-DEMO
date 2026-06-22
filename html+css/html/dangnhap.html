@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập - ApartSync</title>
+
+  <style>
+      *{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+          font-family:'Segoe UI', Arial, sans-serif;
+      }
+
+      body{
+          min-height:100vh;
+          background:
+                  linear-gradient(rgba(15,23,42,0.75), rgba(15,23,42,0.75)),
+                  url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80");
+          background-size:cover;
+          background-position:center;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          color:#0f172a;
+      }
+
+      .login-wrapper{
+          width:1000px;
+          min-height:560px;
+          background:rgba(255,255,255,0.92);
+          backdrop-filter:blur(15px);
+          border-radius:28px;
+          overflow:hidden;
+          display:flex;
+          box-shadow:0 30px 80px rgba(0,0,0,0.35);
+          animation:fadeIn 0.7s ease;
+      }
+
+      @keyframes fadeIn{
+          from{
+              opacity:0;
+              transform:translateY(25px);
+          }
+          to{
+              opacity:1;
+              transform:translateY(0);
+          }
+      }
+
+      .left-box{
+          width:45%;
+          background:linear-gradient(160deg,#0f172a,#1e293b);
+          color:white;
+          padding:45px;
+          display:flex;
+          flex-direction:column;
+          justify-content:space-between;
+          position:relative;
+          overflow:hidden;
+      }
+
+      .left-box::after{
+          content:"";
+          position:absolute;
+          width:260px;
+          height:260px;
+          border-radius:50%;
+          background:rgba(249,115,22,0.18);
+          right:-80px;
+          bottom:-80px;
+      }
+
+      .brand h1{
+          color:#f97316;
+          font-size:34px;
+          margin-bottom:8px;
+      }
+
+      .brand p{
+          color:#cbd5e1;
+          font-size:15px;
+          line-height:1.6;
+      }
+
+      .intro h2{
+          font-size:28px;
+          margin-bottom:15px;
+      }
+
+      .intro p{
+          color:#cbd5e1;
+          line-height:1.7;
+      }
+
+      .features{
+          display:grid;
+          gap:15px;
+          z-index:2;
+      }
+
+      .feature-item{
+          background:rgba(255,255,255,0.08);
+          padding:15px;
+          border-radius:16px;
+          border:1px solid rgba(255,255,255,0.12);
+      }
+
+      .right-box{
+          width:55%;
+          padding:55px;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+      }
+
+      .login-title{
+          margin-bottom:35px;
+      }
+
+      .login-title h2{
+          font-size:32px;
+          color:#0f172a;
+          margin-bottom:8px;
+      }
+
+      .login-title p{
+          color:#64748b;
+          font-size:15px;
+      }
+
+      .input-group{
+          margin-bottom:20px;
+      }
+
+      .input-group label{
+          display:block;
+          margin-bottom:8px;
+          color:#334155;
+          font-weight:600;
+          font-size:14px;
+      }
+
+      .input-box{
+          position:relative;
+      }
+
+      .input-box span{
+          position:absolute;
+          left:16px;
+          top:50%;
+          transform:translateY(-50%);
+          color:#64748b;
+      }
+
+      .input-box input{
+          width:100%;
+          padding:15px 16px 15px 46px;
+          border:1px solid #e2e8f0;
+          border-radius:15px;
+          outline:none;
+          font-size:15px;
+          background:#f8fafc;
+          transition:0.3s;
+      }
+
+      .input-box input:focus{
+          background:white;
+          border-color:#f97316;
+          box-shadow:0 0 0 4px rgba(249,115,22,0.13);
+      }
+
+      .options{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin:15px 0 25px;
+          font-size:14px;
+      }
+
+      .remember{
+          display:flex;
+          align-items:center;
+          gap:8px;
+          color:#475569;
+      }
+
+      .forgot{
+          color:#f97316;
+          text-decoration:none;
+          font-weight:600;
+      }
+
+      .forgot:hover{
+          text-decoration:underline;
+      }
+
+      .login-btn{
+          width:100%;
+          padding:16px;
+          border:none;
+          border-radius:16px;
+          background:linear-gradient(135deg,#f97316,#fb923c);
+          color:white;
+          font-size:16px;
+          font-weight:700;
+          cursor:pointer;
+          transition:0.3s;
+          box-shadow:0 15px 30px rgba(249,115,22,0.28);
+      }
+
+      .login-btn:hover{
+          transform:translateY(-3px);
+          box-shadow:0 20px 40px rgba(249,115,22,0.4);
+      }
+
+      .note{
+          margin-top:25px;
+          padding:14px;
+          border-radius:14px;
+          background:#fff7ed;
+          color:#9a3412;
+          font-size:14px;
+          text-align:center;
+      }
+
+      .footer-text{
+          margin-top:25px;
+          text-align:center;
+          color:#64748b;
+          font-size:13px;
+      }
+
+      @media(max-width:900px){
+          .login-wrapper{
+              width:92%;
+              flex-direction:column;
+          }
+
+          .left-box,
+          .right-box{
+              width:100%;
+          }
+
+          .left-box{
+              padding:30px;
+          }
+
+          .right-box{
+              padding:35px;
+          }
+      }
+  </style>
+</head>
+
+<body>
+
+<div class="login-wrapper">
+
+  <div class="left-box">
+
+    <div class="brand">
+      <h1>🏢 ApartSync</h1>
+      <p>Hệ thống quản lý chung cư thông minh</p>
+    </div>
+
+    <div class="intro">
+      <h2>Chào mừng trở lại!</h2>
+      <p>
+        Đăng nhập để quản lý cư dân, hóa đơn, phương tiện,
+        phản ánh và báo cáo vận hành chung cư.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature-item">✅ Quản lý cư dân tập trung</div>
+      <div class="feature-item">✅ Theo dõi hóa đơn nhanh chóng</div>
+      <div class="feature-item">✅ Xử lý phản ánh chuyên nghiệp</div>
+    </div>
+
+  </div>
+
+  <div class="right-box">
+
+    <div class="login-title">
+      <h2>Đăng nhập</h2>
+      <p>Vui lòng nhập tài khoản để vào hệ thống</p>
+    </div>
+
+    <form action="Trangchu.html">
+
+      <div class="input-group">
+        <label>Tên đăng nhập</label>
+        <div class="input-box">
+          <span>👤</span>
+          <input type="text" placeholder="Nhập tên đăng nhập" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Mật khẩu</label>
+        <div class="input-box">
+          <span>🔒</span>
+          <input type="password" placeholder="Nhập mật khẩu" required>
+        </div>
+      </div>
+
+      <div class="options">
+        <label class="remember">
+          <input type="checkbox">
+          Ghi nhớ đăng nhập
+        </label>
+
+        <a href="#" class="forgot">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="login-btn">Đăng nhập</button>
+
+    </form>
+
+    <div class="note">
+      Tài khoản mẫu: <b>admin</b> / Mật khẩu: <b>123456</b>
+    </div>
+
+    <div class="footer-text">
+      © 2026 ApartSync - Quản lý chung cư
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
